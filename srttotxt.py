@@ -41,6 +41,11 @@ def create_parser():
                         default=0,
                         type=int,
                         help="Объединение строк в предложения")
+    parser.add_argument('-c', '--clean',
+                        nargs='?',
+                        default=0,
+                        type=int,
+                        help="Очистка файла от HTML-разметки")
     return parser
 
 
@@ -98,6 +103,15 @@ def clean_srt(text_srt):
     return re.sub(r'</?font.*?>','',text_srt)
 
 
+def set_clean_file_name(srt_path):
+    # Разделяем путь и имя файла
+    (path, srt_name) = os.path.split(srt_path)
+    # Выполняем замену
+    srt_cleaned_name = srt_name[0:-4] + "_cleaned.srt"
+    # Возвращаем новый путь
+    return os.path.join(path, srt_cleaned_name)
+
+
 if __name__ == '__main__':
     try:
         parser = create_parser()
@@ -106,22 +120,25 @@ if __name__ == '__main__':
         # Считываем исходный текст из файла
         text_srt = namespace.inputfile.read()
 
-        # Удаляем HTML-разметку из текста
-        text_srt_cleaned = clean_srt(text_srt)
-        
-        # Конвертируем текст
-        text_txt = convertsrttotxt(text_srt_cleaned)
-
-        # Записываем переконвертированный текст в файл
-        if namespace.outputfile:
-            namespace.outputfile.write(text_txt)
+        if namespace.clean == 1:
+            # Удаляем HTML-разметку из текста
+            text_srt_cleaned = clean_srt(text_srt)
+            # Получаем путь для очищенного файла
+            cleaned_file = set_clean_file_name(namespace.inputfile.name)
+            with open(cleaned_file, "w") as fout:
+                fout.write(text_srt_cleaned)
         else:
-            try:
+        
+            # Конвертируем текст
+            text_txt = convertsrttotxt(text_srt)
+
+            # Записываем переконвертированный текст в файл
+            if namespace.outputfile:
+                namespace.outputfile.write(text_txt)
+            else:
                 outputfile = get_file_name(namespace.inputfile.name)
                 with open(outputfile, "w") as fout:
                     fout.write(text_txt)
-            except IOError:
-                print("Во время записи файла произошла ошибка")
     except IOError:
         print("Во время конвертации произошла ошибка")
     else:
