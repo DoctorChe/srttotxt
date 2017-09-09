@@ -4,8 +4,9 @@
 import sys
 import argparse
 import os.path
+import re
 
-version = "0.1.1"
+version = "0.1.2"
 
 
 def create_parser():
@@ -90,6 +91,13 @@ def convertsrttotxt(text):
     return out
 
 
+def clean_srt(text_srt):
+    """
+    Удаление HTML-разметки из текста
+    """
+    return re.sub(r'</?font.*?>','',text_srt)
+
+
 if __name__ == '__main__':
     try:
         parser = create_parser()
@@ -98,8 +106,11 @@ if __name__ == '__main__':
         # Считываем исходный текст из файла
         text_srt = namespace.inputfile.read()
 
+        # Удаляем HTML-разметку из текста
+        text_srt_cleaned = clean_srt(text_srt)
+        
         # Конвертируем текст
-        text_txt = convertsrttotxt(text_srt)
+        text_txt = convertsrttotxt(text_srt_cleaned)
 
         # Записываем переконвертированный текст в файл
         if namespace.outputfile:
