@@ -91,11 +91,12 @@ def convert_srt_to_txt(text, join=0):
             continue
         else:
             result.append(line.strip())
-    # if namespace.join == 1:
-    if join == 1:
+    if join:
         # Объединяем строки в предложения
         for line in result:
-            if out.endswith("."):
+            if line.startswith("[") and line.endswith("]"):
+                out = out + "\n" + line + "\n"
+            elif out.endswith("."):
                 out = out + "\n" + line
             else:
                 out = out + " " + line
