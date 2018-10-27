@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 """
     Converter from SRT to TXT format.
@@ -10,10 +10,10 @@
       -i, --inputfile INPUTFILE     input file name
       -o, --outputfile OUTPUTFILE   output file name
       -j, --join 0|1                join lines (0 - no, 1 - yes)
-      -c, --clean 0|1               clean a file of HTML markup (0 - no, 1 - yes)
+      -c, --clean 0|1               clean SRT file of HTML markup (0 - no, 1 - yes) and exit
 
     Example:
-    python srttotxt.py -i The-Fate-of-the-First-Stars-Space-Time.srt
+    python3 srttotxt.py -i The-Fate-of-the-First-Stars-Space-Time.srt
 
     :copyright: (c) 2018 by Doctor_Che
     :license: GPLv3, see LICENSE for more details.
@@ -67,17 +67,7 @@ def create_parser():
     return parser
 
 
-def get_file_name(srt_path):
-    # Разделяем путь и имя файла
-    (path, srt_name) = os.path.split(srt_path)
-    # Выполняем замену
-    # if os.path.exists(srt_name):
-    txt_name = srt_name[0:-3] + "txt"
-    # Возвращаем новый путь
-    return os.path.join(path, txt_name)
-
-
-def convert_srt_to_txt(text):
+def convert_srt_to_txt(text, join=0):
     """
 Удаление служебных строк из файла
     """
@@ -101,7 +91,8 @@ def convert_srt_to_txt(text):
             continue
         else:
             result.append(line.strip())
-    if namespace.join == 1:
+    # if namespace.join == 1:
+    if join == 1:
         # Объединяем строки в предложения
         for line in result:
             if out.endswith("."):
@@ -118,19 +109,10 @@ def clean_srt(text_srt):
     """
     Удаление HTML-разметки из текста
     """
-    return re.sub(r'</?font.*?>','',text_srt)
+    return re.sub(r'</?font.*?>', '', text_srt)
 
 
-def set_clean_file_name(srt_path):
-    # Разделяем путь и имя файла
-    (path, srt_name) = os.path.split(srt_path)
-    # Выполняем замену
-    srt_cleaned_name = srt_name[0:-4] + "_cleaned.srt"
-    # Возвращаем новый путь
-    return os.path.join(path, srt_cleaned_name)
-
-
-if __name__ == '__main__':
+def main():
     try:
         parser = create_parser()
         namespace = parser.parse_args(sys.argv[1:])
@@ -138,26 +120,31 @@ if __name__ == '__main__':
         # Считываем исходный текст из файла
         text_srt = namespace.inputfile.read()
 
-        if namespace.clean == 1:
+        if namespace.clean:
             # Удаляем HTML-разметку из текста
             text_srt_cleaned = clean_srt(text_srt)
             # Получаем путь для очищенного файла
-            cleaned_file = set_clean_file_name(namespace.inputfile.name)
+            cleaned_file = f"{os.path.splitext(namespace.inputfile.name)[0]}_cleaned.srt"
             with open(cleaned_file, "w") as fout:
                 fout.write(text_srt_cleaned)
         else:
-        
             # Конвертируем текст
-            text_txt = convert_srt_to_txt(text_srt)
+            text_txt = convert_srt_to_txt(text_srt, namespace.join)
 
             # Записываем переконвертированный текст в файл
             if namespace.outputfile:
                 namespace.outputfile.write(text_txt)
             else:
-                output_file = get_file_name(namespace.inputfile.name)
+                # Получаем путь для выходного файла
+                output_file = f"{os.path.splitext(namespace.inputfile.name)[0]}.txt"
                 with open(output_file, "w") as fout:
                     fout.write(text_txt)
+
     except IOError:
         print("Во время конвертации произошла ошибка")
     else:
         print("Конвертация файла произведена успешно")
+
+
+if __name__ == '__main__':
+    main()
