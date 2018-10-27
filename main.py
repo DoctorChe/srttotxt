@@ -14,7 +14,6 @@ import youtube_subtitle_downloader as youtubesd
 class MainWindow(QtWidgets.QMainWindow):
     """Основной класс программы"""
 
-    # def __init__(self, iniFile, parent=None):
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
@@ -37,7 +36,8 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         input_file = self.ui.lineEdit_input_file.text()
         if input_file:
-            output_file = f"{os.path.splitext(input_file)[0]}.txt"
+            base, _ = os.path.splitext(input_file)
+            output_file = f"{base}.txt"
             self.ui.lineEdit_output_file.setText(output_file)
         else:
             self.ui.statusbar.showMessage("Задайте имя исходного файла")
@@ -107,7 +107,6 @@ class MainWindow(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot()
     def open_file_dialog(self):
         options = QtWidgets.QFileDialog.Options()
-        # options |= QFileDialog.DontUseNativeDialog
         intput_file, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Считать данные из файла", "",
                                                                # "SRT Files (*.srt)",
                                                                options=options)
@@ -118,7 +117,6 @@ class MainWindow(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot()
     def save_file_dialog(self):
         options = QtWidgets.QFileDialog.Options()
-        # options |= QFileDialog.DontUseNativeDialog
         output_file, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить файл с текущими данными", "",
                                                                "TXT Files (*.txt)", options=options)
 
@@ -141,9 +139,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
-    # QApplication.setDesktopSettingsAware(False)
     app = QtWidgets.QApplication(sys.argv)  # pylint: disable=invalid-name
-    # myapp = MainWindow("last_values.ini")
     myapp = MainWindow()
     myapp.show()
     sys.exit(app.exec_())
