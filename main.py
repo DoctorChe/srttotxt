@@ -8,6 +8,7 @@ from PyQt5 import QtCore
 # Импортируем наш интерфейс из файла
 from ui.ui_mainwindow import Ui_MainWindow
 import srttotxt
+import youtube_subtitle_downloader as youtubesd
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -18,6 +19,15 @@ class MainWindow(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+    @QtCore.pyqtSlot()
+    def download_subtitle(self):
+        url = self.ui.lineEdit_url.text()
+        result = youtubesd.download_subtitle(url)
+        if result:
+            self.ui.statusbar.showMessage("Процесс загрузки файла с субтитрами закончен")
+        else:
+            self.ui.statusbar.showMessage("Программа youtube-dl не установлена")
 
     @QtCore.pyqtSlot()
     def set_txt_file_name(self):
@@ -88,7 +98,8 @@ class MainWindow(QtWidgets.QMainWindow):
         options = QtWidgets.QFileDialog.Options()
         # options |= QFileDialog.DontUseNativeDialog
         intput_file, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Считать данные из файла", "",
-                                                               "SRT Files (*.srt)", options=options)
+                                                               # "SRT Files (*.srt)",
+                                                               options=options)
         if intput_file:
             self.ui.lineEdit_input_file.setText(intput_file)
             self.load_file()

@@ -17,58 +17,68 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QPushButton" name="pushButton_read_file">
         <property name="text">
          <string>Загрузить</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="7" column="1">
+       <widget class="QCheckBox" name="checkBox_join">
+        <property name="text">
+         <string>Объединение строк в предложения</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
        <widget class="QPushButton" name="pushButton_save_file">
         <property name="text">
          <string>Сохранить</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
+      <item row="5" column="2">
        <widget class="QToolButton" name="toolButton_output_file">
         <property name="text">
          <string>...</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="3" column="2">
        <widget class="QToolButton" name="toolButton_input_file">
         <property name="text">
          <string>...</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="5" column="1">
        <widget class="QLineEdit" name="lineEdit_output_file"/>
       </item>
-      <item row="4" column="0">
+      <item row="6" column="0">
        <widget class="QPushButton" name="pushButton_clean">
         <property name="text">
          <string>Очистка файла от HTML-разметки</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <widget class="QLineEdit" name="lineEdit_input_file"/>
       </item>
-      <item row="5" column="0">
+      <item row="7" column="0">
        <widget class="QPushButton" name="pushButton_convert">
         <property name="text">
          <string>Конвертировать</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QCheckBox" name="checkBox_join">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineEdit_url"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="pushButton_download">
         <property name="text">
-         <string>Объединение строк в предложения</string>
+         <string>Скачать субтитры</string>
         </property>
        </widget>
       </item>
@@ -200,7 +210,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>117</x>
-     <y>145</y>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
@@ -216,7 +226,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>172</x>
-     <y>114</y>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>340</x>
@@ -264,7 +274,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>767</x>
-     <y>48</y>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
@@ -280,7 +290,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>180</x>
-     <y>48</y>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>522</x>
@@ -296,7 +306,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>773</x>
-     <y>82</y>
+     <y>115</y>
     </hint>
     <hint type="destinationlabel">
      <x>731</x>
@@ -312,7 +322,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>200</x>
-     <y>73</y>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>504</x>
@@ -368,6 +378,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_download</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>download_subtitle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>104</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>32</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open_file_dialog()</slot>
@@ -379,5 +405,6 @@
   <slot>save_file_dialog()</slot>
   <slot>set_txt_file_name()</slot>
   <slot>save_file()</slot>
+  <slot>download_subtitle()</slot>
  </slots>
 </ui>
