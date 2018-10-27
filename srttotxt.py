@@ -69,16 +69,14 @@ def create_parser():
 
 def convert_srt_to_txt(text, join=False):
     """
-Удаление служебных строк из файла
+    Удаление служебных строк из файла
     """
     lines = text.split('\n')
     result = []
     for line in lines:
-        # Пропускаем пустые строки
-        if not line.strip():
+        if not line.strip():  # Пропускаем пустые строки
             continue
-        # Пропускаем строки состоящие только из цифр
-        elif line.strip().isdigit():
+        elif line.strip().isdigit():  # Пропускаем строки состоящие только из цифр
             continue
         # Пропускаем строки имеющие формат "00:00:00,000 --> 00:00:03,090"
         elif re.match(r"\d{2}:\d{2}:\d{2}.\d{3} --> \d{2}:\d{2}:\d{2}.\d{3}", line.strip()):
@@ -86,11 +84,9 @@ def convert_srt_to_txt(text, join=False):
         else:
             result.append(line.strip())
     if join:
-        # Объединяем строки в предложения
-        out = join_lines(result)
+        out = join_lines(result)  # Объединяем строки в предложения
     else:
-        # Объединяем строки без разбора на предложения
-        out = "\n".join(result)
+        out = "\n".join(result)  # Объединяем строки без разбора на предложения
     return out
 
 
@@ -106,8 +102,6 @@ def join_lines(lst):
             out = f"{out}\n{line}\n"
         elif out.endswith("."):
             out = f"{out}\n{line}"
-        elif not line:
-            continue
         else:
             out = f"{out} {line}"
     return out
@@ -125,26 +119,23 @@ def main():
         parser = create_parser()
         namespace = parser.parse_args(sys.argv[1:])
 
-        # Считываем исходный текст из файла
-        text_srt = namespace.inputfile.read()
+        text_srt = namespace.inputfile.read()  # Считываем исходный текст из файла
+
+        base, _ = os.path.splitext(namespace.inputfile.name)
 
         if namespace.clean:
-            # Удаляем HTML-разметку из текста
-            text_srt_cleaned = clean_srt(text_srt)
-            # Получаем путь для очищенного файла
-            cleaned_file = f"{os.path.splitext(namespace.inputfile.name)[0]}_cleaned.srt"
+            text_srt_cleaned = clean_srt(text_srt)  # Удаляем HTML-разметку из текста
+            cleaned_file = f"{base}_cleaned.srt"  # Получаем путь для очищенного файла
             with open(cleaned_file, "w") as fout:
                 fout.write(text_srt_cleaned)
         else:
-            # Конвертируем текст
-            text_txt = convert_srt_to_txt(text_srt, namespace.join)
+            text_txt = convert_srt_to_txt(text_srt, namespace.join)  # Конвертируем текст
 
             # Записываем переконвертированный текст в файл
             if namespace.outputfile:
                 namespace.outputfile.write(text_txt)
             else:
-                # Получаем путь для выходного файла
-                output_file = f"{os.path.splitext(namespace.inputfile.name)[0]}.txt"
+                output_file = f"{base}.txt"  # Получаем путь для выходного файла
                 with open(output_file, "w") as fout:
                     fout.write(text_txt)
 
