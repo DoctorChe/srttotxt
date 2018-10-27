@@ -24,7 +24,7 @@ import argparse
 import os.path
 import re
 
-version = "0.1.3"
+version = "0.2.0"
 
 
 def create_parser():
@@ -67,42 +67,49 @@ def create_parser():
     return parser
 
 
-def convert_srt_to_txt(text, join=0):
+def convert_srt_to_txt(text, join=False):
     """
 Удаление служебных строк из файла
     """
     lines = text.split('\n')
     result = []
-    out = ""
     for line in lines:
         # Пропускаем пустые строки
-        # if line.strip().isspace():
-            # continue
-        if len(line.strip()) == 0:
+        if not line.strip():
             continue
         # Пропускаем строки состоящие только из цифр
         elif line.strip().isdigit():
             continue
         # Пропускаем строки имеющие формат "00:00:00,000 --> 00:00:03,090"
-        elif (line.strip()[:1].isdigit() and line.strip()[2] == ':'
-                and line.strip()[3:4].isdigit()
-                and line.strip()[5] == ':'
-                and line.strip()[6:7].isdigit()):
+        elif re.match(r"\d{2}:\d{2}:\d{2}.\d{3} --> \d{2}:\d{2}:\d{2}.\d{3}", line.strip()):
             continue
         else:
             result.append(line.strip())
     if join:
         # Объединяем строки в предложения
-        for line in result:
-            if line.startswith("[") and line.endswith("]"):
-                out = out + "\n" + line + "\n"
-            elif out.endswith("."):
-                out = out + "\n" + line
-            else:
-                out = out + " " + line
+        out = join_lines(result)
     else:
         # Объединяем строки без разбора на предложения
         out = "\n".join(result)
+    return out
+
+
+def join_lines(lst):
+    """
+    Merge lines into sentences
+    :param lst:
+    :return:
+    """
+    out = ""
+    for line in lst:
+        if line.startswith("[") and line.endswith("]"):
+            out = f"{out}\n{line}\n"
+        elif out.endswith("."):
+            out = f"{out}\n{line}"
+        elif not line:
+            continue
+        else:
+            out = f"{out} {line}"
     return out
 
 
@@ -110,7 +117,7 @@ def clean_srt(text_srt):
     """
     Удаление HTML-разметки из текста
     """
-    return re.sub(r'</?font.*?>', '', text_srt)
+    return re.sub(r"</?font.*?>", "", text_srt)
 
 
 def main():

@@ -66,6 +66,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.plainTextEdit_input.setPlainText(srt_data_cleaned)
 
     @QtCore.pyqtSlot()
+    def paste_from_clipboard(self):
+        clipboard = QtWidgets.QApplication.clipboard()
+        self.ui.lineEdit_url.setText(clipboard.text())
+
+    @QtCore.pyqtSlot()
+    def copy_to_clipboard(self):
+        clipboard = QtWidgets.QApplication.clipboard()
+        clipboard.setText(self.ui.plainTextEdit_output.toPlainText())
+        self.ui.statusbar.showMessage("Субтитры скопированы в буфер обмена")
+
+    @QtCore.pyqtSlot()
     def load_file(self):
         self.ui.plainTextEdit_output.clear()
         srt_path = self.ui.lineEdit_input_file.text()
