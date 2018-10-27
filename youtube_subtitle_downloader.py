@@ -1,14 +1,22 @@
 import subprocess
+import os
 
 
 def download_subtitle(url):
+    """
+    Скачивает субтитры с youtube использую youtube-dl
+    :param url: url видео
+    :return: имя файла субтитров
+    """
     try:
-        subprocess.run(["youtube-dl",
-                        "--skip-download",
-                        "--write-sub",
-                        url])
-        return True
-    except FileNotFoundError:
-        return False
-
-# youtube-dl --skip-download --write-sub --sub-format srt --sub-lang en https://www.youtube.com/watch?v=4pSUtWBiuB4
+        output = subprocess.check_output(["youtube-dl", "--skip-download", "--write-sub", url],
+                                         universal_newlines=True)
+        s = "[info] Writing video subtitles to: "
+        file_name = [x[len(s):] for x in output.split("\n") if x.startswith(s)][0]
+        if os.path.isfile(file_name):
+            file_name = os.path.join(os.getcwd(), file_name)
+        else:
+            raise FileNotFoundError
+        return file_name
+    except (FileNotFoundError, IndexError):
+        return None

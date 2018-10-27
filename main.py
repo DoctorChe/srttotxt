@@ -22,11 +22,12 @@ class MainWindow(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot()
     def download_subtitle(self):
         url = self.ui.lineEdit_url.text()
-        result = youtubesd.download_subtitle(url)
-        if result:
+        file_name = youtubesd.download_subtitle(url)
+        if file_name:
+            self.ui.lineEdit_input_file.setText(file_name)
             self.ui.statusbar.showMessage("Процесс загрузки файла с субтитрами закончен")
         else:
-            self.ui.statusbar.showMessage("Программа youtube-dl не установлена")
+            self.ui.statusbar.showMessage("Программа youtube-dl не установлена или видео не содержит субтитров")
 
     @QtCore.pyqtSlot()
     def set_txt_file_name(self):
