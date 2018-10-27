@@ -1,21 +1,39 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+"""
+    Converter from SRT to TXT format.
+
+    Usage: srttotxt.py [-h] [-v] [-i INPUTFILE] [-o [OUTPUTFILE]] [-j [JOIN]] [-c [CLEAN]]
+
+      -h, --help                    show this help message and exit
+      -v, --version                 show version of the program
+      -i, --inputfile INPUTFILE     input file name
+      -o, --outputfile OUTPUTFILE   output file name
+      -j, --join 0|1                join lines (0 - no, 1 - yes)
+      -c, --clean 0|1               clean a file of HTML markup (0 - no, 1 - yes)
+
+    Example:
+    python srttotxt.py -i The-Fate-of-the-First-Stars-Space-Time.srt
+
+    :copyright: (c) 2018 by Doctor_Che
+    :license: GPLv3, see LICENSE for more details.
+"""
 
 import sys
 import argparse
 import os.path
 import re
 
-version = "0.1.2"
+version = "0.1.3"
 
 
 def create_parser():
     # Создаем класс парсера
     parser = argparse.ArgumentParser(
-        prog='srttotxt',
+        prog='srttotxt.py',
         description='''Программа для перевода файлов субтитров
 формата SRT в текстовые файлы формата TXT''',
-        epilog='''(c) Doctor_Che 2017. Автор программы, как всегда,
+        epilog='''(c) Doctor_Che 2018. Автор программы, как всегда,
 не несет никакой ответственности ни за что.''',
         add_help=False
         )
@@ -59,7 +77,7 @@ def get_file_name(srt_path):
     return os.path.join(path, txt_name)
 
 
-def convertsrttotxt(text):
+def convert_srt_to_txt(text):
     """
 Удаление служебных строк из файла
     """
@@ -130,14 +148,14 @@ if __name__ == '__main__':
         else:
         
             # Конвертируем текст
-            text_txt = convertsrttotxt(text_srt)
+            text_txt = convert_srt_to_txt(text_srt)
 
             # Записываем переконвертированный текст в файл
             if namespace.outputfile:
                 namespace.outputfile.write(text_txt)
             else:
-                outputfile = get_file_name(namespace.inputfile.name)
-                with open(outputfile, "w") as fout:
+                output_file = get_file_name(namespace.inputfile.name)
+                with open(output_file, "w") as fout:
                     fout.write(text_txt)
     except IOError:
         print("Во время конвертации произошла ошибка")
