@@ -4,7 +4,7 @@ import os
 
 def download_subtitle(url):
     """
-    Скачивает субтитры с youtube использую youtube-dl
+    Скачивает субтитры с youtube используя youtube-dl
     :param url: url видео
     :return: имя файла субтитров
     """
