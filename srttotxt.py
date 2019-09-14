@@ -78,6 +78,10 @@ def convert_srt_to_txt(text, join=False):
             continue
         elif line.strip().isdigit():  # Пропускаем строки состоящие только из цифр
             continue
+        elif (line.startswith("WEBVTT") or
+              line.startswith("Kind: captions") or
+              line.startswith("Language: en")):  # Пропускаем строки состоящие содержащие служебную информацию
+            continue
         # Пропускаем строки имеющие формат "00:00:00,000 --> 00:00:03,090"
         elif re.match(r"\d{2}:\d{2}:\d{2}.\d{3} --> \d{2}:\d{2}:\d{2}.\d{3}", line.strip()):
             continue
