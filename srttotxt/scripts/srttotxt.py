@@ -24,7 +24,7 @@ import argparse
 import os.path
 import re
 
-version = "0.2.0"
+version = "0.2.1"
 
 
 def create_parser():

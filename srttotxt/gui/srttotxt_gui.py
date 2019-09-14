@@ -6,9 +6,9 @@ import os
 from PySide2 import QtWidgets
 from PySide2 import QtCore
 
-from ui.ui_mainwindow import Ui_MainWindow
+from gui.ui_mainwindow import Ui_MainWindow
 import srttotxt
-import youtube_subtitle_downloader as youtubesd
+from scripts import youtube_subtitle_downloader as youtubesd
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -139,8 +139,12 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QMessageBox.aboutQt(self)
 
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication(sys.argv)  # pylint: disable=invalid-name
     myapp = MainWindow()
     myapp.show()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    main()
