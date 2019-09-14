@@ -15,7 +15,7 @@
     Example:
     python3 srttotxt.py -i The-Fate-of-the-First-Stars-Space-Time.srt
 
-    :copyright: (c) 2018 by Doctor_Che
+    :copyright: (c) 2019 by Doctor_Che
     :license: GPLv3, see LICENSE for more details.
 """
 
@@ -24,7 +24,7 @@ import argparse
 import os.path
 import re
 
-version = "0.2.0"
+VERSION = "0.2.1"
 
 
 def create_parser():
@@ -45,7 +45,7 @@ def create_parser():
     parser.add_argument('-v', '--version',
                         action='version',
                         help='Вывести номер версии',
-                        version='%(prog)s {}'.format(version))
+                        version='%(prog)s {}'.format(VERSION))
     parser.add_argument('-i', '--inputfile',
                         default="inputfile.srt",
                         type=argparse.FileType('r'),

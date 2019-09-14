@@ -6,9 +6,9 @@ import os
 from PySide2 import QtWidgets
 from PySide2 import QtCore
 
-from ui.ui_mainwindow import Ui_MainWindow
-import srttotxt
-import youtube_subtitle_downloader as youtubesd
+from .ui.ui_mainwindow import Ui_MainWindow
+from .scripts.youtube_subtitle_downloader import download_subtitle
+from .scripts import srttotxt
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow):
     @QtCore.Slot()
     def download_subtitle(self):
         url = self.ui.lineEdit_url.text()
-        file_name = youtubesd.download_subtitle(url)
+        file_name = download_subtitle(url)
         if file_name:
             self.ui.lineEdit_input_file.setText(file_name)
             self.ui.statusbar.showMessage("Процесс загрузки файла с субтитрами закончен")
@@ -139,8 +139,12 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QMessageBox.aboutQt(self)
 
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication(sys.argv)  # pylint: disable=invalid-name
     myapp = MainWindow()
     myapp.show()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    main()
