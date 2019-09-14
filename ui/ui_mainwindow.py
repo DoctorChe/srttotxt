@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_mainwindow.ui'
+# Form implementation generated from reading ui file 'ui_mainwindow.ui',
+# licensing of 'ui_mainwindow.ui' applies.
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created: Sat Sep 14 09:59:21 2019
+#      by: pyside2-uic  running on PySide2 5.13.1
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -107,44 +109,43 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.action_exit.triggered.connect(MainWindow.close)
-        self.action_open.triggered.connect(MainWindow.load_file)
-        self.pushButton_convert.clicked.connect(MainWindow.convert_srt_to_txt)
-        self.pushButton_clean.clicked.connect(MainWindow.clean_srt)
-        self.action_about.triggered.connect(MainWindow.show_about_window)
-        self.action_Qt.triggered.connect(MainWindow.show_aboutqt_window)
-        self.toolButton_input_file.clicked.connect(MainWindow.open_file_dialog)
-        self.pushButton_read_file.clicked.connect(MainWindow.load_file)
-        self.toolButton_output_file.clicked.connect(MainWindow.set_txt_file_name)
-        self.pushButton_save_file.clicked.connect(MainWindow.save_file)
-        self.action_open_as.triggered.connect(MainWindow.open_file_dialog)
-        self.action_save.triggered.connect(MainWindow.save_file)
-        self.action_save_as.triggered.connect(MainWindow.save_file_dialog)
-        self.pushButton_download.clicked.connect(MainWindow.download_subtitle)
-        self.toolButton_clipboard.clicked.connect(MainWindow.paste_from_clipboard)
-        self.toolButton_copy_to_clipboard.clicked.connect(MainWindow.copy_to_clipboard)
+        QtCore.QObject.connect(self.action_exit, QtCore.SIGNAL("triggered()"), MainWindow.close)
+        QtCore.QObject.connect(self.action_open, QtCore.SIGNAL("triggered()"), MainWindow.load_file)
+        QtCore.QObject.connect(self.pushButton_convert, QtCore.SIGNAL("clicked()"), MainWindow.convert_srt_to_txt)
+        QtCore.QObject.connect(self.pushButton_clean, QtCore.SIGNAL("clicked()"), MainWindow.clean_srt)
+        QtCore.QObject.connect(self.action_about, QtCore.SIGNAL("triggered()"), MainWindow.show_about_window)
+        QtCore.QObject.connect(self.action_Qt, QtCore.SIGNAL("triggered()"), MainWindow.show_aboutqt_window)
+        QtCore.QObject.connect(self.toolButton_input_file, QtCore.SIGNAL("clicked()"), MainWindow.open_file_dialog)
+        QtCore.QObject.connect(self.pushButton_read_file, QtCore.SIGNAL("clicked()"), MainWindow.load_file)
+        QtCore.QObject.connect(self.toolButton_output_file, QtCore.SIGNAL("clicked()"), MainWindow.set_txt_file_name)
+        QtCore.QObject.connect(self.pushButton_save_file, QtCore.SIGNAL("clicked()"), MainWindow.save_file)
+        QtCore.QObject.connect(self.action_open_as, QtCore.SIGNAL("triggered()"), MainWindow.open_file_dialog)
+        QtCore.QObject.connect(self.action_save, QtCore.SIGNAL("triggered()"), MainWindow.save_file)
+        QtCore.QObject.connect(self.action_save_as, QtCore.SIGNAL("triggered()"), MainWindow.save_file_dialog)
+        QtCore.QObject.connect(self.pushButton_download, QtCore.SIGNAL("clicked()"), MainWindow.download_subtitle)
+        QtCore.QObject.connect(self.toolButton_clipboard, QtCore.SIGNAL("clicked()"), MainWindow.paste_from_clipboard)
+        QtCore.QObject.connect(self.toolButton_copy_to_clipboard, QtCore.SIGNAL("clicked()"), MainWindow.copy_to_clipboard)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SRTtoTXT"))
-        self.pushButton_read_file.setText(_translate("MainWindow", "Загрузить"))
-        self.checkBox_join.setText(_translate("MainWindow", "Объединение строк в предложения"))
-        self.pushButton_save_file.setText(_translate("MainWindow", "Сохранить"))
-        self.toolButton_output_file.setText(_translate("MainWindow", "..."))
-        self.toolButton_input_file.setText(_translate("MainWindow", "..."))
-        self.pushButton_clean.setText(_translate("MainWindow", "Очистка файла от HTML-разметки"))
-        self.pushButton_convert.setText(_translate("MainWindow", "Конвертировать"))
-        self.pushButton_download.setText(_translate("MainWindow", "Скачать субтитры"))
-        self.toolButton_clipboard.setText(_translate("MainWindow", "..."))
-        self.toolButton_copy_to_clipboard.setText(_translate("MainWindow", "..."))
-        self.menu.setTitle(_translate("MainWindow", "Файл"))
-        self.menu_2.setTitle(_translate("MainWindow", "Справка"))
-        self.action_open.setText(_translate("MainWindow", "Открыть"))
-        self.action_exit.setText(_translate("MainWindow", "Выход"))
-        self.action_Qt.setText(_translate("MainWindow", "О Qt"))
-        self.action_about.setText(_translate("MainWindow", "О программе"))
-        self.action_open_as.setText(_translate("MainWindow", "Открыть как..."))
-        self.action_save.setText(_translate("MainWindow", "Сохранить"))
-        self.action_save_as.setText(_translate("MainWindow", "Сохранить как..."))
+        MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "SRTtoTXT", None, -1))
+        self.pushButton_read_file.setText(QtWidgets.QApplication.translate("MainWindow", "Загрузить", None, -1))
+        self.checkBox_join.setText(QtWidgets.QApplication.translate("MainWindow", "Объединение строк в предложения", None, -1))
+        self.pushButton_save_file.setText(QtWidgets.QApplication.translate("MainWindow", "Сохранить", None, -1))
+        self.toolButton_output_file.setText(QtWidgets.QApplication.translate("MainWindow", "...", None, -1))
+        self.toolButton_input_file.setText(QtWidgets.QApplication.translate("MainWindow", "...", None, -1))
+        self.pushButton_clean.setText(QtWidgets.QApplication.translate("MainWindow", "Очистка файла от HTML-разметки", None, -1))
+        self.pushButton_convert.setText(QtWidgets.QApplication.translate("MainWindow", "Конвертировать", None, -1))
+        self.pushButton_download.setText(QtWidgets.QApplication.translate("MainWindow", "Скачать субтитры", None, -1))
+        self.toolButton_clipboard.setText(QtWidgets.QApplication.translate("MainWindow", "...", None, -1))
+        self.toolButton_copy_to_clipboard.setText(QtWidgets.QApplication.translate("MainWindow", "...", None, -1))
+        self.menu.setTitle(QtWidgets.QApplication.translate("MainWindow", "Файл", None, -1))
+        self.menu_2.setTitle(QtWidgets.QApplication.translate("MainWindow", "Справка", None, -1))
+        self.action_open.setText(QtWidgets.QApplication.translate("MainWindow", "Открыть", None, -1))
+        self.action_exit.setText(QtWidgets.QApplication.translate("MainWindow", "Выход", None, -1))
+        self.action_Qt.setText(QtWidgets.QApplication.translate("MainWindow", "О Qt", None, -1))
+        self.action_about.setText(QtWidgets.QApplication.translate("MainWindow", "О программе", None, -1))
+        self.action_open_as.setText(QtWidgets.QApplication.translate("MainWindow", "Открыть как...", None, -1))
+        self.action_save.setText(QtWidgets.QApplication.translate("MainWindow", "Сохранить", None, -1))
+        self.action_save_as.setText(QtWidgets.QApplication.translate("MainWindow", "Сохранить как...", None, -1))
 
