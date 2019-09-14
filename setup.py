@@ -73,10 +73,10 @@ setup_dir = os.path.dirname(cwd)
 
 # clearing __pycache__
 src_pycache = os.path.join(setup_dir, 'srttotxt', '__pycache__')
-gui_pycache = os.path.join(setup_dir, 'srttotxt', 'gui', '__pycache__')
+ui_pycache = os.path.join(setup_dir, 'srttotxt', 'ui', '__pycache__')
 scripts_pycache = os.path.join(setup_dir, 'srttotxt', 'scripts', '__pycache__')
 
-for folder in [src_pycache, gui_pycache, scripts_pycache]:
+for folder in [src_pycache, ui_pycache, scripts_pycache]:
     if os.path.isdir(folder):
         shutil.rmtree(folder)
         print(f'{str(folder)} is removed!')
@@ -95,12 +95,13 @@ setup(
     maintainer_email='duncan.reg@yandex.ru',
     packages=(
         'srttotxt',
-        'srttotxt.gui',
+        'srttotxt.ui',
         'srttotxt.scripts',
     ),
     entry_points={
         'console_scripts': [
-            'srttotxt = srttotxt.__main__'
+            'srttotxtgui = srttotxt.__main__',
+            'srttotxt = srttotxt.scripts.__main__'
         ]
     }
 )

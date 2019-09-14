@@ -1,3 +1,3 @@
-from gui import srttotxt_gui
+from .srttotxt_gui import main
 
-srttotxt_gui.main()
+main()
