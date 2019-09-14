@@ -69,7 +69,10 @@ def create_parser():
 
 def convert_srt_to_txt(text, join=False):
     """
-    Удаление служебных строк из файла
+    Removing information lines from file
+    :param text: String in SRT format
+    :param join: Merge lines into sentences
+    :return: String in TXT format
     """
     lines = text.split('\n')
     result = []
@@ -97,8 +100,8 @@ def convert_srt_to_txt(text, join=False):
 def join_lines(lst):
     """
     Merge lines into sentences
-    :param lst:
-    :return:
+    :param lst: List of strings
+    :return: String with sentences
     """
     out = ""
     for line in lst:
@@ -119,6 +122,7 @@ def clean_srt(text_srt):
 
 
 def main():
+    output_file = ""
     try:
         parser = create_parser()
         namespace = parser.parse_args(sys.argv[1:])
@@ -137,6 +141,7 @@ def main():
 
             # Записываем переконвертированный текст в файл
             if namespace.outputfile:
+                output_file = namespace.outputfile.name
                 namespace.outputfile.write(text_txt)
             else:
                 output_file = f"{base}.txt"  # Получаем путь для выходного файла
@@ -147,6 +152,7 @@ def main():
         print("Во время конвертации произошла ошибка")
     else:
         print("Конвертация файла произведена успешно")
+        print(f"Сохранённый файл: '{output_file}'")
 
 
 if __name__ == '__main__':
