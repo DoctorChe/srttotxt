@@ -3,9 +3,9 @@
 
 import sys
 import os
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-# Импортируем наш интерфейс из файла
+from PySide2 import QtWidgets
+from PySide2 import QtCore
+
 from ui.ui_mainwindow import Ui_MainWindow
 import srttotxt
 import youtube_subtitle_downloader as youtubesd
@@ -19,7 +19,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def download_subtitle(self):
         url = self.ui.lineEdit_url.text()
         file_name = youtubesd.download_subtitle(url)
@@ -29,7 +29,7 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.ui.statusbar.showMessage("Программа youtube-dl не установлена или видео не содержит субтитров")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def set_txt_file_name(self):
         """
         Установить имя для сохранения файла
@@ -43,7 +43,7 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.ui.statusbar.showMessage("Задайте имя исходного файла")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def convert_srt_to_txt(self):
         """
         Перевод текста формата SRT в формат TXT
@@ -55,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
         txt_data = srttotxt.convert_srt_to_txt(srt_data, join)
         self.ui.plainTextEdit_output.setPlainText(txt_data)
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def clean_srt(self):
         """
         Очистка файла от HTML-разметки
@@ -66,18 +66,18 @@ class MainWindow(QtWidgets.QMainWindow):
         srt_data_cleaned = srttotxt.clean_srt(srt_data)
         self.ui.plainTextEdit_input.setPlainText(srt_data_cleaned)
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def paste_from_clipboard(self):
         clipboard = QtWidgets.QApplication.clipboard()
         self.ui.lineEdit_url.setText(clipboard.text())
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def copy_to_clipboard(self):
         clipboard = QtWidgets.QApplication.clipboard()
         clipboard.setText(self.ui.plainTextEdit_output.toPlainText())
         self.ui.statusbar.showMessage("Субтитры скопированы в буфер обмена")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def load_file(self):
         self.ui.plainTextEdit_output.clear()
         srt_path = self.ui.lineEdit_input_file.text()
@@ -91,7 +91,7 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.ui.statusbar.showMessage("Задайте имя файла для загрузки")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def save_file(self):
         txt_path = self.ui.lineEdit_output_file.text()
         if txt_path:
@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.ui.statusbar.showMessage("Задайте имя файла для сохранения")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def open_file_dialog(self):
         options = QtWidgets.QFileDialog.Options()
         intput_file, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Считать данные из файла", "",
@@ -115,7 +115,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_input_file.setText(intput_file)
             self.load_file()
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def save_file_dialog(self):
         options = QtWidgets.QFileDialog.Options()
         output_file, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Сохранить файл с текущими данными", "",
@@ -125,7 +125,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.lineEdit_output_file.setText(output_file)
             self.save_file()
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def show_about_window(self):
         """Отображение окна сведений о программе"""
         return QtWidgets.QMessageBox.about(
@@ -133,7 +133,7 @@ class MainWindow(QtWidgets.QMainWindow):
             "О программе",
             f"Конвертер файлов из формата SRT в TXT\nВерсия {srttotxt.version}")
 
-    @QtCore.pyqtSlot()
+    @QtCore.Slot()
     def show_aboutqt_window(self):
         """Отображение окна сведений о библиотеке Qt"""
         return QtWidgets.QMessageBox.aboutQt(self)
