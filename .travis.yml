@@ -16,3 +16,4 @@ before_install:
 script:
  - sudo python3 setup.py install
  - srttotxt -v
+ - srttotxtgui

@@ -22,7 +22,6 @@ class MainWindow(QtWidgets.QMainWindow):
     @QtCore.Slot()
     def download_subtitle(self):
         url = self.ui.lineEdit_url.text()
-        # file_name = youtubesd.download_subtitle(url)
         file_name = download_subtitle(url)
         if file_name:
             self.ui.lineEdit_input_file.setText(file_name)

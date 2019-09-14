@@ -20,6 +20,8 @@ import sys
 import platform
 import shutil
 
+from srttotxt.scripts.srttotxt import VERSION
+
 # finding os platform
 os_type = platform.system()
 
@@ -83,7 +85,7 @@ for folder in [src_pycache, ui_pycache, scripts_pycache]:
 
 setup(
     name='SRTtoTTX',
-    version='0.2.1',
+    version=VERSION,
     license='GPL3',
     description=DESCRIPTION,
     long_description=DESCRIPTION,
