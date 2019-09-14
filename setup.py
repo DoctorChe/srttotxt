@@ -57,7 +57,7 @@ if not_installed != '':
     print('########################')
     print('####### WARNING ########')
     print('########################')
-    print('Some dependencies are not installed .It causes some problems for persepolis! : \n')
+    print('Some dependencies are not installed. It causes some problems for SRTtoTXT! : \n')
     print(not_installed + '\n\n')
     answer = input('Do you want to continue?(y/n)')
     if answer not in ['y', 'Y', 'yes']:
@@ -84,7 +84,7 @@ for folder in [src_pycache, ui_pycache, scripts_pycache]:
         print(f'{str(folder)} is removed!')
 
 setup(
-    name='SRTtoTTX',
+    name='SRTtoTXT',
     version=VERSION,
     license='GPL3',
     description=DESCRIPTION,
