@@ -1,2 +1,2 @@
 PySide2
-youtube-dl==2019.9.12.1
+youtube-dl==2020.1.15
