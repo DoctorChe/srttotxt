@@ -1,2 +1,2 @@
 PySide2
-youtube-dl==2021.2.4.1
+youtube-dl==2021.4.26
