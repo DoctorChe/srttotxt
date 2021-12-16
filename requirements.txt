@@ -1,2 +1,2 @@
-PySide2
+PySide2==5.15.2
 youtube-dl==2021.2.4.1
